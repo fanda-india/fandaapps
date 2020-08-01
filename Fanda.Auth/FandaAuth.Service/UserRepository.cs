@@ -2,9 +2,9 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Fanda.Core;
 using Fanda.Core.Base;
-using FandaAuth.Service.Extensions;
 using FandaAuth.Domain;
 using FandaAuth.Service.Dto;
+using FandaAuth.Service.Extensions;
 using FandaAuth.Service.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -585,7 +585,8 @@ namespace FandaAuth.Service
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.GivenName, $"{user.FirstName} {user.LastName}"),
+                    new Claim(ClaimTypes.GivenName, $"{user.FirstName} {user.LastName}")
+                    //JwtRegisteredClaimNames.Sub, JwtRegisteredClaimNames.NameId, JwtRegisteredClaimNames.Email
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(180),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
